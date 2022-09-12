@@ -59,7 +59,6 @@ const Tasks = () => {
     setTasks(data || [])
   }, []);
 
-  console.log("tasks", tasks);
   const handleClose = () => {
     setOpen(false);
   }
@@ -113,9 +112,8 @@ const Tasks = () => {
               variant="text"
               aria-label="password policy action buttons"
             >
-              <Tooltip title="Edit"> // Unable to complete Edit funtionlity due to time constraints
+              <Tooltip title="Edit">
                 <Button
-                  disable={true}
                   {...{
                     component: Link,
                     to: "/tasks/task/edit/" + params.row.id,
@@ -207,8 +205,8 @@ const Tasks = () => {
             columnBuffer={2}
             columns={columns}
             getRowId={(row) => row.name + row.description}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
+            pageSize={100}
+            rowsPerPageOptions={[10]}
             checkboxSelection={false}
           />
         ) : <h4>No Pending task found</h4>
@@ -240,7 +238,7 @@ const Tasks = () => {
         <DialogTitle> Task Delete</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete the task? {taskId}
+            Are you sure you want to delete the task: {taskId}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

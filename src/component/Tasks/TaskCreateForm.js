@@ -55,11 +55,17 @@ const TaskCreateForm = ({
 
   const onFormSubmit = (value) => {
     const items = JSON.parse(localStorage.getItem("task")) || [];
-    if (items.length) {
-      value.id = parseInt(items[items.length - 1].id) + count;
-    } else { value.id = count++ }
-    const newItems = JSON.stringify([...items, value])
-    localStorage.setItem("task", newItems);
+    if (edit) {
+      const index = items && items.findIndex(el => el.id === data.id);
+      items[index] = value;
+      localStorage.setItem("task", JSON.stringify(items));
+    } else {
+      if (items.length) {
+        value.id = parseInt(items[items.length - 1].id) + count;
+      } else { value.id = count++ }
+      const newItems = JSON.stringify([...items, value])
+      localStorage.setItem("task", newItems);
+    }
   }
 
   const chilePage = () => {
@@ -120,7 +126,7 @@ const TaskCreateForm = ({
                   }, 1000)
                 }}
               >
-                {data ? "Update" : "Submit"}
+                {edit ? "Update" : "Submit"}
               </Button>
               <Button
                 color="primary"
